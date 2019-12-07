@@ -1,10 +1,15 @@
 import React, { Component } from 'react';
 import UsernameForm from './components/UsernameForm';
+import ChatScreen from './ChatScreen';
 import './App.css';
 
 class App extends Component {
   constructor() {
     super()
+    this.state = {
+      currentScreen: 'WhatIsYourUsernameScreen',
+      currentUsername: ''
+    }
     this.onUsernameSubmitted = this.onUsernameSubmitted.bind(this);
   }
   onUsernameSubmitted(username) {
@@ -16,14 +21,23 @@ class App extends Component {
       body: JSON.stringify({username}),
     })
     .then(response => {
-      console.log('success')
+      this.setState({
+        currentUsername: username,
+        currentScreen: 'ChatScreen'
+      })
+
     })
     .catch(error => {
       console.log(error)
     })
   }
   render() {
-    return <UsernameForm onSubmit={username => alert(username)}/>
+    if(this.state.currentScreen === 'WhatIsYourUsernameScreen') {
+      return <UsernameForm onSubmit={this.onUsernameSubmitted}/>
+    } else if(this.state.currentScreen === 'ChatScreen') {
+      return <ChatScreen currentUsername = {this.state.currentUsername} />
+    }
+     
   }
 }
 
