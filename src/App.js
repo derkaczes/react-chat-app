@@ -35,7 +35,7 @@ class App extends Component {
     if(this.state.currentScreen === 'WhatIsYourUsernameScreen') {
       return <UsernameForm onSubmit={this.onUsernameSubmitted}/>
     } else if(this.state.currentScreen === 'ChatScreen') {
-      return <ChatScreen currentUsername = {this.state.currentUsername} />
+      return <ChatScreen currentUsername={this.state.currentUsername}/>
     }
      
   }
