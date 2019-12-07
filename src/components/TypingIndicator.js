@@ -9,10 +9,10 @@ class TypingIndicator extends Component {
             .slice(0, 2)
             .join(' and ')} is typing`}
         </div>
-      )
+      );
     }
     return <div />
   }
 }
 
-export default TypingIndicator
+export default TypingIndicator;

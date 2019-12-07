@@ -2,19 +2,19 @@ import React, { Component } from 'react';
 
 class UsernameForm extends Component {
     constructor(props) {
-        super(props)
+        super(props);
         this.state = {
             username: ''
-        }
+        };
+
         this.onChange = this.onChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
-
     }
 
     onChange(e) {
         this.setState({
             username: e.target.value,
-        })
+        });
     }
 
     onSubmit(e) {
@@ -35,7 +35,7 @@ class UsernameForm extends Component {
                 </form>
             </div>
         )
-    }
+    };
 }
 
 export default UsernameForm;

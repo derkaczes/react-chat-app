@@ -1,4 +1,4 @@
- import React, { Component } from 'react'
+ import React, { Component } from 'react';
 
  class MessagesList extends Component {
    render() {
@@ -19,6 +19,7 @@
        },
        message: { fontSize: 15 },
      }
+
      return (
        <div
          style={{
@@ -37,8 +38,8 @@
            ))}
          </ul>
        </div>
-     )
-   }
+     );
+   };
  }
 
- export default MessagesList
+ export default MessagesList;

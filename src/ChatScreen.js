@@ -3,6 +3,7 @@ import Chatkit from '@pusher/chatkit-client';
 import MessageList from './components/MessageList';
 import SendMessageForm from './components/SendMessageForm';
 import TypingIndicator from './components/TypingIndicator';
+import WhosOnlineList from './components/WhosOnlineList';
 
 class ChatScreen extends Component {
     constructor(props) {
@@ -15,13 +16,13 @@ class ChatScreen extends Component {
         }
         this.sendMessage = this.sendMessage.bind(this);
         this.sendTypingEvent = this.sendTypingEvent.bind(this)
-    }
+    };
 
     sendTypingEvent() {
         this.state.currentUser
             .isTypingIn({ roomId: this.state.currentRoom.id })
             .catch(error => console.error('error', error))
-    }
+    };
 
 
     sendMessage(text) {
@@ -29,8 +30,8 @@ class ChatScreen extends Component {
             text,
             roomId: this.state.currentRoom.id,
         })
-    }
-    
+    };
+
     componentDidMount () {
     const chatManager = new Chatkit.ChatManager({
         instanceLocator: 'v1:us1:3c8a313a-728b-45fd-bd0f-cb20cdef3cce',
@@ -38,7 +39,7 @@ class ChatScreen extends Component {
         tokenProvider: new Chatkit.TokenProvider({
         url: 'http://localhost:3001/authenticate',
         }),
-    })
+    });
 
     chatManager
         .connect()
@@ -65,13 +66,14 @@ class ChatScreen extends Component {
                         ),
                     })
                 },
+                onPresenceChange: () => this.forceUpdate(),
             },
         })
         })
         .then(currentRoom => {
         this.setState({ currentRoom })
         })
-        .catch(error => console.error('error', error))
+        .catch(error => console.error('error', error));
     }
         
     render() {
@@ -99,13 +101,16 @@ class ChatScreen extends Component {
             display: 'flex',
             flexDirection: 'column',
            },
-        }
+        };
 
         return (
             <div style={styles.container}>
             <div style={styles.chatContainer}>
                 <aside style={styles.whosOnlineListContainer}>
-                <h2>Who's online PLACEHOLDER</h2>
+                <WhosOnlineList
+                   currentUser={this.state.currentUser}
+                   users={this.state.currentRoom.users}
+                />
                 </aside>
                 <section style={styles.chatListContainer}>
                     <MessageList
@@ -119,7 +124,7 @@ class ChatScreen extends Component {
                 </section>
             </div>
             </div>
-        )
+        );
     }
 }
 
